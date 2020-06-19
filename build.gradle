@@ -2,12 +2,37 @@ plugins {
     id 'java'
 }
 
+configurations {
+    mysql
+    oracle
+}
+
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
 
+    mysql 'mysql:mysql-connector-java:8.0.20'
+    oracle 'com.oracle.database.jdbc:ojdbc8:19.6.0.0'
+
     testImplementation 'junit:junit:4.13'
+}
+
+jar {
+    doFirst {
+        if (project.hasProperty("databaseType")) {
+            println("Build jar with databaseType: " + project.property("databaseType"))
+        } else {
+            throw new InvalidUserDataException("No database type")
+        }
+    }
+
+    from {
+        configurations.findByName(project.databaseType).collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    from('src/config/'+project.databaseType) {
+        include '**/*'
+    }
 }

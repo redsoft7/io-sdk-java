@@ -8,7 +8,7 @@ public class FormConfiguration {
 
     public JsonObject load() {
         BufferedReader br = new BufferedReader(
-                new InputStreamReader(this.getClass().getResourceAsStream("/config.json")));
+                new InputStreamReader(this.getClass().getResourceAsStream("/form.json")));
         JsonParser parser = new JsonParser();
         return parser.parse(br).getAsJsonObject();
     }

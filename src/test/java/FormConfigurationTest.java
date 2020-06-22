@@ -14,4 +14,5 @@ public class FormConfigurationTest {
         JsonElement form = jsonObject.get("form");
         assertNotNull(form);
     }
+
 }

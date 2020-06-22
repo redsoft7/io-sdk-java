@@ -29,10 +29,13 @@ jar {
         }
     }
 
-    from {
-        configurations.findByName(project.databaseType).collect { it.isDirectory() ? it : zipTree(it) }
-    }
-    from('src/config/'+project.databaseType) {
-        include '**/*'
+
+    if (project.hasProperty("databaseType")) {
+        from {
+            configurations.findByName(project.databaseType).collect { it.isDirectory() ? it : zipTree(it) }
+        }
+        from('src/config/' + project.databaseType) {
+            include '**/*'
+        }
     }
 }

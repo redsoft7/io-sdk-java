@@ -2,6 +2,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import java.util.List;
+
 public class Main {
 
     public static JsonObject main(JsonObject jsonArgs) {
@@ -14,8 +16,10 @@ public class Main {
                 return createResponse(form);
             }
 
-            JsonObject data = new MockData().load();
-            return createResponse(data);
+            List<Message> messages = importer.loadMessages();
+
+            JsonElement jsonMessages = new Gson().toJsonTree(messages);
+            return createResponse(createDataResponse(jsonMessages));
         } catch (Exception e) {
             return createErrorResponse(e.getMessage());
         }
@@ -24,6 +28,12 @@ public class Main {
     public static JsonObject createResponse(JsonElement element){
         JsonObject response = new JsonObject();
         response.add("body", element);
+        return response;
+    }
+
+    public static JsonObject createDataResponse(JsonElement element){
+        JsonObject response = new JsonObject();
+        response.add("data", element);
         return response;
     }
 

@@ -1,4 +1,8 @@
+package importer;
+
 public class Args {
+
+    private String databaseType;
 
     private String host;
 
@@ -11,6 +15,14 @@ public class Args {
     private String user;
 
     private String password;
+
+    public void setDatabaseType(String databaseType) {
+        this.databaseType = databaseType;
+    }
+
+    public String getDatabaseType() {
+        return databaseType;
+    }
 
     public String getHost() {
         return host;
@@ -59,4 +71,5 @@ public class Args {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

@@ -1,6 +1,11 @@
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import config.Configuration;
+import config.FormConfiguration;
+import domain.Message;
+import importer.Args;
+import importer.Importer;
 
 import java.util.List;
 
@@ -9,10 +14,11 @@ public class Main {
     public static JsonObject main(JsonObject jsonArgs) {
         try {
             Args args = new Gson().fromJson(jsonArgs, Args.class);
+            args.setDatabaseType(Configuration.load().getDatabaseType());
 
             Importer importer = new Importer(args);
             if (importer.showForm()) {
-                JsonObject form = new FormConfiguration().load();
+                JsonObject form = new FormConfiguration().load(args.getDatabaseType());
                 return createResponse(form);
             }
 

@@ -1,3 +1,10 @@
+package importer;
+
+import config.Configuration;
+import config.JdbcConfiguration;
+import domain.Message;
+import error.ImportException;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -22,10 +29,11 @@ public class Importer {
                 || args.getPassword() == null;
     }
 
-    public List<Message> loadMessages() throws IOException, ClassNotFoundException, SQLException {
+    public List<Message> loadMessages() {
         List<Message> messages = new ArrayList<>();
         Statement stmt;
-        try (Connection connection = new JdbcConfiguration(args).getConnection()) {
+        JdbcConfiguration jdbcConfiguration = new JdbcConfiguration(args.getDatabaseType());
+        try (Connection connection = jdbcConfiguration.getConnection(args)) {
             stmt = connection.createStatement();
             String selectSql = "SELECT 0 AS amount,\n" +
                     "scadenza AS due_date,\n" +
@@ -39,15 +47,17 @@ public class Importer {
             while (resultSet.next()) {
                 Message msg = new Message(
                     resultSet.getInt("amount"),
-                    resultSet.getString("due_date"),
+                    resultSet.getDate("due_date").getTime(),
                     resultSet.getString("fiscal_code"),
                     resultSet.getBoolean("invalid_after_due_date"),
                     resultSet.getString("markdown"),
                     resultSet.getInt("notice_number"),
-                    resultSet.getString("notice_number"));
+                    resultSet.getString("subject"));
                 messages.add(msg);
             }
 
+        } catch (SQLException ex) {
+            throw new ImportException("Error reading messages: "+ex.getMessage(), ex);
         }
         return messages;
     }

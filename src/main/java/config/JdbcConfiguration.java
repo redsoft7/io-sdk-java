@@ -47,8 +47,14 @@ public class JdbcConfiguration {
     }
 
     public String buildJdbcUrl(Args args) {
-        return jdbcUrl.replace("${host}", args.getHost())
-                .replace("${port}", args.getPort())
-                .replace("${database}", args.getDatabase());
+        String url = jdbcUrl.replace("${host}", args.getHost())
+                .replace("${port}", args.getPort());
+        if(args.getDatabase() != null){
+            url = url.replace("${database}", args.getDatabase());
+        }
+        if(args.getSid() != null){
+            url = url.replace("${sid}", args.getSid());
+        }
+        return url;
     }
 }

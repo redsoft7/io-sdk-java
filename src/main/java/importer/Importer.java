@@ -22,11 +22,21 @@ public class Importer {
     }
 
     public boolean showForm() {
-        return args.getHost() == null
-                || args.getPort() == null
-                || args.getDatabase() == null
-                || args.getUser() == null
-                || args.getPassword() == null;
+        if("mysql".equals(args.getDatabaseType())) {
+            return args.getHost() == null
+                    || args.getPort() == null
+                    || args.getDatabase() == null
+                    || args.getUser() == null
+                    || args.getPassword() == null;
+        }
+        if("oracle".equals(args.getDatabaseType())) {
+            return args.getHost() == null
+                    || args.getPort() == null
+                    || args.getSid() == null
+                    || args.getUser() == null
+                    || args.getPassword() == null;
+        }
+        return false;
     }
 
     public List<Message> loadMessages() {
@@ -38,7 +48,7 @@ public class Importer {
             String selectSql = "SELECT 0 AS amount,\n" +
                     "scadenza AS due_date,\n" +
                     "destinatario AS fiscal_code,\n" +
-                    "false AS invalid_after_due_date,\n" +
+                    "0 AS invalid_after_due_date,\n" +
                     "testo AS markdown,\n" +
                     "1 AS notice_number,\n" +
                     "titolo AS subject FROM messages";

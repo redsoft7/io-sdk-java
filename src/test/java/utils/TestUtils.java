@@ -15,4 +15,15 @@ public class TestUtils {
         return args;
     }
 
+    public static Args buildOracleArgs() {
+        Args args = new Args();
+        args.setDatabaseType("oracle");
+        args.setHost("localhost");
+        args.setPort("1521");
+        args.setUser("system");
+        args.setPassword("oracle");
+        args.setSid("xe");
+        return args;
+    }
+
 }

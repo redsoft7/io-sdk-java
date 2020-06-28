@@ -17,4 +17,12 @@ public class FormConfigurationTest {
         assertNotNull(form);
     }
 
+    @Test
+    public void testLoadOracle(){
+        JsonObject jsonObject = new FormConfiguration().load("oracle");
+
+        assertNotNull(jsonObject);
+        JsonElement form = jsonObject.get("form");
+        assertNotNull(form);
+    }
 }

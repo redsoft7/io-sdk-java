@@ -20,12 +20,12 @@ Java importer
 `cd utils/oracle`  
 `docker-compose down -v`
 
-##Mysql
+## Mysql
 
 ### Build IO-SDK action for Mysql
 `./build.sh mysql`
 
-##Oracle
+## Oracle
 
 ### Build IO-SDK action for Oracle
 `./build.sh oracle`

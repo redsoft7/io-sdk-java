@@ -21,7 +21,7 @@ public class JdbcConfigurationTest {
 
         String url = new JdbcConfiguration("mysql").buildJdbcUrl(args);
 
-        assertEquals("jdbc:mysql://localhost:3306/test", url);
+        assertEquals("jdbc:mysql://" + TestUtils.getDockerIp() + ":3306/test", url);
     }
 
     @Test
@@ -47,7 +47,7 @@ public class JdbcConfigurationTest {
 
         String url = new JdbcConfiguration("oracle").buildJdbcUrl(args);
 
-        assertEquals("jdbc:oracle:thin:@localhost:1521:xe", url);
+        assertEquals("jdbc:oracle:thin:@" + TestUtils.getDockerIp() + ":1521:xe", url);
     }
 
     @Test

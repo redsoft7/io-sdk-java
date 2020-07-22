@@ -48,8 +48,11 @@ CREATE TABLE messages (
 `cd utils/oracle`  
 `docker-compose up -d`
 * Wait for local databases to start
-* Run test  
-`gradlew test`
+* Run test
+  * If docker is accessible on localhost:    
+  `./gradlew test` 
+  * otherwise the docker ip must be specified  
+  `./gradlew test -Dio-sdk-java.docker.ip=192.168.1.150`
 * Stop local mysql  
 `cd utils/mysql`  
 `docker-compose down -v`

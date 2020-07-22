@@ -57,6 +57,10 @@ CREATE TABLE messages (
 `cd utils/oracle`  
 `docker-compose down -v`
 
+## How to - Setup Theia IDE
+To install Java on IO-SDK Theia IDE run:  
+`./init_theia.sh`
+
 ## How to - Add new database
 The connection via database is made using JDBC drivers.   
 Only the database driver chosen during build is included in the final jar.

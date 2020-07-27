@@ -20,7 +20,8 @@ CREATE TABLE messages (
 ```
 ### Build IO-SDK action
 `iosdk start`  
-`./build.sh mysql`
+`make build`  
+`make deploy`
 
 ## Oracle
 ### Table DDL
@@ -36,7 +37,8 @@ CREATE TABLE messages (
 ```
 ### Build IO-SDK action for Oracle
 `iosdk start`  
-`./build.sh oracle`
+`make build_oracle`  
+`make deploy`
 
 #Development
 
@@ -59,10 +61,6 @@ CREATE TABLE messages (
 * Stop local oracle  
 `cd utils/oracle`  
 `docker-compose down -v`
-
-## How to - Setup Theia IDE
-To install Java on IO-SDK Theia IDE run:  
-`./init_theia.sh`
 
 ## How to - Add new database
 The connection via database is made using JDBC drivers.   
@@ -94,4 +92,6 @@ dependencies {
 * Now you can build the action for the new database:  
 `./build.sh mysql`
     
-    
+#Release
+Run:  
+`make snapshot`

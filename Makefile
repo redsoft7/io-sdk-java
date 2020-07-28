@@ -1,13 +1,16 @@
 VER?=$(shell git tag --points-at HEAD | head -1)
 DB_TYPE?=mysql
 
-.PHONY: preflight build build_oracle test release release_oracle snapshot clean deploy
+.PHONY: preflight build_mysql build_oracle test release_mysql release_oracle snapshot clean deploy
 
 release:
 	test -n "$(VER)"
-	#$(MAKE) test
+	$(MAKE) test
 	$(MAKE) build
 	zip -rj "build/libs/io-sdk-java-$(VER)-$(DB_TYPE).zip" build/libs/io-sdk-java.jar
+
+release_mysql:
+	$(MAKE) DB_TYPE=mysql release
 
 release_oracle:
 	$(MAKE) DB_TYPE=oracle release
@@ -18,11 +21,14 @@ clean:
 build: preflight
 	./build.sh $(DB_TYPE)
 
+build_mysql:
+	$(MAKE) DB_TYPE=mysql build
+
 build_oracle:
 	$(MAKE) DB_TYPE=oracle build
 
 test:
-	./gradlew test
+	./test.sh
 
 snapshot:
 	git tag $(shell date +%Y.%m%d.%H%M-snapshot)

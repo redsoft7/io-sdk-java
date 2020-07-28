@@ -20,7 +20,7 @@ CREATE TABLE messages (
 ```
 ### Build IO-SDK action
 `iosdk start`  
-`make build`  
+`make build_mysql`  
 `make deploy`
 
 ## Oracle
@@ -43,24 +43,10 @@ CREATE TABLE messages (
 #Development
 
 ## How to - Run test
-* Start local mysql  
-`cd utils/mysql`  
-`docker-compose up -d`
-* Start local oracle  
-`cd utils/oracle`  
-`docker-compose up -d`
-* Wait for local databases to start
-* Run test
-  * If docker is accessible on localhost:    
-  `./gradlew test` 
-  * otherwise the docker ip must be specified  
-  `./gradlew test -Dio-sdk-java.docker.ip=192.168.1.150`
-* Stop local mysql  
-`cd utils/mysql`  
-`docker-compose down -v`
-* Stop local oracle  
-`cd utils/oracle`  
-`docker-compose down -v`
+* If docker is accessible on localhost:    
+`./test.sh` 
+* otherwise the docker ip must be specified  
+`./test.sh 192.168.1.150`
 
 ## How to - Add new database
 The connection via database is made using JDBC drivers.   
@@ -89,8 +75,13 @@ dependencies {
     The new parameters must be added in the [Args](src/main/java/importer/Args.java) class, and in the "buildJdbcUrl" method 
     of the [JdbcConfiguration](src/main/java/config/JdbcConfiguration.java) class.
   + **jdbc.driver** =  the jdbc driver class
+* Create Makefile target:
+ ```
+build_mysql:
+	$(MAKE) DB_TYPE=mysql build
+ ```
 * Now you can build the action for the new database:  
-`./build.sh mysql`
+`make build_mysql`
     
 #Release
 Run:  

@@ -23,6 +23,7 @@ jobs:
       - name: Build
         id: build
         run: |
+          make test
           make release_mysql
           make release_oracle
           MYSQLPATH=$(ls build/libs/io-sdk-java-*-mysql.zip)

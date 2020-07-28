@@ -5,7 +5,6 @@ DB_TYPE?=mysql
 
 release:
 	test -n "$(VER)"
-	$(MAKE) test
 	$(MAKE) build
 	zip -rj "build/libs/io-sdk-java-$(VER)-$(DB_TYPE).zip" build/libs/io-sdk-java.jar
 

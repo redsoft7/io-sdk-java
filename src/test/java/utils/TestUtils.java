@@ -16,7 +16,11 @@ public class TestUtils {
     }
 
     public static String getDockerIp() {
-        return System.getProperty("io-sdk-java.docker.ip", "localhost");
+        String dockerIP = System.getProperty("io-sdk-java.docker.ip");
+        if(dockerIP == null || dockerIP.isEmpty()){
+            return "localhost";
+        }
+        return dockerIP;
     }
 
     public static Args buildOracleArgs() {
@@ -30,4 +34,14 @@ public class TestUtils {
         return args;
     }
 
+    public static Args buildSQLServerArgs() {
+        Args args = new Args();
+        args.setDatabaseType("sqlserver");
+        args.setHost(getDockerIp());
+        args.setDatabase("test");
+        args.setPort("1433");
+        args.setUser("sa");
+        args.setPassword("StrongPassword1");
+        return args;
+    }
 }

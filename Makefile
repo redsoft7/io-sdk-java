@@ -14,6 +14,9 @@ release_mysql:
 release_oracle:
 	$(MAKE) DB_TYPE=oracle release
 
+release_sqlserver:
+	$(MAKE) DB_TYPE=mysql release
+
 clean:
 	./gradlew clean
 
@@ -25,6 +28,9 @@ build_mysql:
 
 build_oracle:
 	$(MAKE) DB_TYPE=oracle build
+
+build_sqlserver:
+	$(MAKE) DB_TYPE=sqlserver build
 
 test:
 	./test.sh

@@ -5,6 +5,7 @@ plugins {
 configurations {
     mysql
     oracle
+    sqlserver
 }
 
 repositories {
@@ -16,10 +17,13 @@ dependencies {
 
     mysql 'mysql:mysql-connector-java:8.0.20'
     oracle 'com.oracle.database.jdbc:ojdbc8:19.6.0.0'
+    sqlserver 'com.microsoft.sqlserver:mssql-jdbc:8.4.1.jre8'
+
 
     testImplementation 'junit:junit:4.13'
     testImplementation 'mysql:mysql-connector-java:8.0.20'
     testImplementation 'com.oracle.database.jdbc:ojdbc8:19.6.0.0'
+    testImplementation 'com.microsoft.sqlserver:mssql-jdbc:8.4.1.jre8'
 }
 
 jar {

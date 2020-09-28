@@ -66,4 +66,30 @@ public class JdbcConfigurationTest {
 
         new Importer(args).loadMessages();
     }
+
+    @Test
+    public void testJdbcUrlSQLServer(){
+        Args args = TestUtils.buildSQLServerArgs();
+
+        String url = new JdbcConfiguration("sqlserver").buildJdbcUrl(args);
+
+        assertEquals("jdbc:sqlserver://" + TestUtils.getDockerIp() + ":1433;databaseName=test", url);
+    }
+
+    @Test
+    public void testConnectionSQLServer() throws SQLException {
+        Args args = TestUtils.buildSQLServerArgs();
+
+        Connection connection = new JdbcConfiguration("sqlserver").getConnection(args);
+
+        assertTrue(connection.isValid(1));
+    }
+
+    @Test(expected =ImportException.class)
+    public void testConnectionErrorSQLServer() {
+        Args args = TestUtils.buildSQLServerArgs();
+        args.setPort("1234");
+
+        new Importer(args).loadMessages();
+    }
 }

@@ -3,7 +3,7 @@ Java importer for [IO-SDK](https://github.com/pagopa/io-sdk).
 The connector reads the data from a table called "messages".  
 Currently Mysql and Oracle databases are supported.
 
-##Prerequisites
+## Prerequisites
 Install [IO-SDK](https://github.com/pagopa/io-sdk/releases)
 
 ## Mysql
@@ -40,7 +40,26 @@ CREATE TABLE messages (
 `make build_oracle`  
 `make deploy`
 
-#Development
+
+## SQL Server
+### Table DDL
+```
+CREATE TABLE messages (
+    id int NOT NULL IDENTITY ,
+    scadenza date NOT NULL,
+    destinatario varchar(16) NOT NULL,
+    testo varchar(1000) NOT NULL,
+    titolo varchar(100) NOT NULL,
+    PRIMARY KEY (id)
+);
+```
+### Build IO-SDK action for SQL Server
+`iosdk start`  
+`make build_sqlserver`  
+`make deploy`
+
+
+# Development
 
 ## How to - Run test
 * If docker is accessible on localhost:    
@@ -75,14 +94,17 @@ dependencies {
     The new parameters must be added in the [Args](src/main/java/importer/Args.java) class, and in the "buildJdbcUrl" method 
     of the [JdbcConfiguration](src/main/java/config/JdbcConfiguration.java) class.
   + **jdbc.driver** =  the jdbc driver class
-* Create Makefile target:
+* Configure required parameters in the method "showForm" of [Importer](src/main/java/importer/Importer.java)
+* Create Makefile targets:
  ```
 build_mysql:
 	$(MAKE) DB_TYPE=mysql build
+release_mysql:
+	$(MAKE) DB_TYPE=mysql release
  ```
 * Now you can build the action for the new database:  
 `make build_mysql`
     
-#Release
+# Release
 Run:  
 `make snapshot`

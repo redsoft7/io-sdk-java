@@ -36,6 +36,13 @@ public class Importer {
                     || args.getUser() == null
                     || args.getPassword() == null;
         }
+        if("sqlserver".equals(args.getDatabaseType())) {
+            return args.getHost() == null
+                    || args.getDatabase() == null
+                    || args.getPort() == null
+                    || args.getUser() == null
+                    || args.getPassword() == null;
+        }
         return false;
     }
 

@@ -6,7 +6,7 @@ DB_TYPE?=mysql
 release:
 	test -n "$(VER)"
 	$(MAKE) build
-	zip -rj "build/libs/io-sdk-java-$(VER)-$(DB_TYPE).zip" build/libs/io-sdk-java.jar
+	cp build/distributions/io-sdk-java.zip "build/distributions/io-sdk-java-$(VER)-$(DB_TYPE).zip"
 
 release_mysql:
 	$(MAKE) DB_TYPE=mysql release
@@ -40,7 +40,7 @@ snapshot:
 	git push origin master --tags
 
 deploy:
-	wsk action update iosdk/import build/libs/io-sdk-java.jar --main Main --docker openwhisk/actionloop-java-v8:nightly
+	wsk action update iosdk/import build/distributions/io-sdk-java.zip --main Main --docker openwhisk/actionloop-java-v8:nightly
 
 preflight:
 	echo "checking required versions"

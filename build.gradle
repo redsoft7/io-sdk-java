@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'distribution'
 }
 
 configurations {
@@ -26,7 +27,23 @@ dependencies {
     testImplementation 'com.microsoft.sqlserver:mssql-jdbc:8.4.1.jre8'
 }
 
-jar {
+//jar {
+//    doFirst {
+//        if (project.hasProperty("databaseType")) {
+//            println("Build jar with databaseType: " + project.property("databaseType"))
+//        } else {
+//            throw new InvalidUserDataException("No database type")
+//        }
+//    }
+//
+//    if (project.hasProperty("databaseType")) {
+//        from {
+//            configurations.findByName(project.databaseType).collect { it.isDirectory() ? it : zipTree(it) }
+//        }
+//    }
+//}
+
+distributions {
     doFirst {
         if (project.hasProperty("databaseType")) {
             println("Build jar with databaseType: " + project.property("databaseType"))
@@ -34,10 +51,15 @@ jar {
             throw new InvalidUserDataException("No database type")
         }
     }
-
-    if (project.hasProperty("databaseType")) {
-        from {
-            configurations.findByName(project.databaseType).collect { it.isDirectory() ? it : zipTree(it) }
+    main {
+        contents {
+            from jar
+            if (project.hasProperty("databaseType")) {
+                from {
+                    configurations.findByName(project.databaseType).collect { it }
+                }
+            }
+            into '/'
         }
     }
 }
@@ -46,3 +68,4 @@ test {
     systemProperty 'oracle.jdbc.timezoneAsRegion', 'false'
     systemProperty 'io-sdk-java.docker.ip', System.getProperty('io-sdk-java.docker.ip')
 }
+

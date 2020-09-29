@@ -26,14 +26,19 @@ jobs:
           make test
           make release_mysql
           make release_oracle
-          MYSQLPATH=$(ls build/libs/io-sdk-java-*-mysql.zip)
-          MYSQLNAME=$(basename build/libs/io-sdk-java-*-mysql.zip)
-          ORACLEPATH=$(ls build/libs/io-sdk-java-*-oracle.zip)
-          ORACLENAME=$(basename build/libs/io-sdk-java-*-oracle.zip)
+          make release_sqlserver
+          MYSQLPATH=$(ls build/distributions/io-sdk-java-*-mysql.zip)
+          MYSQLNAME=$(basename build/distributions/io-sdk-java-*-mysql.zip)
+          ORACLEPATH=$(ls build/distributions/io-sdk-java-*-oracle.zip)
+          ORACLENAME=$(basename build/distributions/io-sdk-java-*-oracle.zip)
+          SQLSERVERPATH=$(ls build/distributions/io-sdk-java-*-sqlserver.zip)
+          SQLSERVERNAME=$(basename build/distributions/io-sdk-java-*-sqlserver.zip)
           echo ::set-output name=mysql_path::${MYSQLPATH}
           echo ::set-output name=mysql_name::${MYSQLNAME}
           echo ::set-output name=oracle_path::${ORACLEPATH}
           echo ::set-output name=oracle_name::${ORACLENAME}
+          echo ::set-output name=sqlserver_path::${SQLSERVERPATH}
+          echo ::set-output name=sqlserver_name::${SQLSERVERNAME}
       
       - name: Create Release
         id: create_release
@@ -66,4 +71,15 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
           asset_path: ${{ steps.build.outputs.oracle_path }}
           asset_name: ${{ steps.build.outputs.oracle_name }}
+          asset_content_type: application/zip
+
+      - name: Upload SQLServer zip
+        id: upload-release-sqlserver-zip-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_path: ${{ steps.build.outputs.sqlserver_path }}
+          asset_name: ${{ steps.build.outputs.sqlserver_name }}
           asset_content_type: application/zip

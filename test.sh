@@ -7,9 +7,9 @@ echo Waiting for database to start
 sleep 30
 if [ -z "$1" ]
   then
-    ./gradlew test -x distributions
+    ./gradlew test
   else
-    ./gradlew test -x distributions "-Dio-sdk-java.docker.ip=$1"
+    ./gradlew test "-Dio-sdk-java.docker.ip=$1"
 fi
 echo Stopping test db
 docker-compose -f utils/mysql/docker-compose.yml down -v

@@ -7,4 +7,4 @@ cd "$(dirname $0)"
 echo "preparing archive, please wait..."
 export ORG_GRADLE_PROJECT_databaseType=$1
 echo "database.type=$1" > src/main/resources/config.properties
-./gradlew clean distZip
+./gradlew distZip

@@ -1,7 +1,7 @@
 VER?=$(shell git tag --points-at HEAD | head -1)
 DB_TYPE?=mysql
 
-.PHONY: preflight build_mysql build_oracle test release_mysql release_oracle snapshot clean deploy
+.PHONY: preflight build_mysql build_oracle build_sqlserver test release_mysql release_oracle release_sqlserver snapshot clean deploy
 
 release:
 	test -n "$(VER)"
@@ -15,7 +15,7 @@ release_oracle:
 	$(MAKE) DB_TYPE=oracle release
 
 release_sqlserver:
-	$(MAKE) DB_TYPE=mysql release
+	$(MAKE) DB_TYPE=sqlserver release
 
 clean:
 	./gradlew clean

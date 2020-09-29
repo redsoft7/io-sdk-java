@@ -27,28 +27,11 @@ dependencies {
     testImplementation 'com.microsoft.sqlserver:mssql-jdbc:8.4.1.jre8'
 }
 
-//jar {
-//    doFirst {
-//        if (project.hasProperty("databaseType")) {
-//            println("Build jar with databaseType: " + project.property("databaseType"))
-//        } else {
-//            throw new InvalidUserDataException("No database type")
-//        }
-//    }
-//
-//    if (project.hasProperty("databaseType")) {
-//        from {
-//            configurations.findByName(project.databaseType).collect { it.isDirectory() ? it : zipTree(it) }
-//        }
-//    }
-//}
 
 distributions {
     doFirst {
         if (project.hasProperty("databaseType")) {
             println("Build jar with databaseType: " + project.property("databaseType"))
-        } else {
-            throw new InvalidUserDataException("No database type")
         }
     }
     main {

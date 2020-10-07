@@ -64,11 +64,11 @@ public class Importer {
             while (resultSet.next()) {
                 Message msg = new Message(
                     resultSet.getInt("amount"),
-                    resultSet.getDate("due_date").getTime(),
+                    resultSet.getDate("due_date"),
                     resultSet.getString("fiscal_code"),
                     resultSet.getBoolean("invalid_after_due_date"),
                     resultSet.getString("markdown"),
-                    resultSet.getInt("notice_number"),
+                    resultSet.getString("notice_number"),
                     resultSet.getString("subject"));
                 messages.add(msg);
             }

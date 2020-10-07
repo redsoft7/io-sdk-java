@@ -2,12 +2,14 @@ package domain;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.sql.Date;
+
 public class Message {
 
-    private int amount;
+    private Integer amount;
 
     @SerializedName("due_date")
-    private Long dueDate;
+    private Date dueDate;
 
     @SerializedName("fiscal_code")
     private String fiscalCode;
@@ -18,12 +20,12 @@ public class Message {
     private String markdown;
 
     @SerializedName("notice_number")
-    private int noticeNumber;
+    private String noticeNumber;
 
     private String subject;
 
-    public Message(int amount, Long dueDate, String fiscalCode, boolean invalidAfterDueDate, String markdown, int noticeNumber, String subject) {
-        this.amount = amount;
+    public Message(Integer amount, Date dueDate, String fiscalCode, boolean invalidAfterDueDate, String markdown, String noticeNumber, String subject) {
+        this.amount = amount == 0 ? null : amount;
         this.dueDate = dueDate;
         this.fiscalCode = fiscalCode;
         this.invalidAfterDueDate = invalidAfterDueDate;
@@ -36,7 +38,7 @@ public class Message {
         return amount;
     }
 
-    public Long getDueDate() {
+    public Date getDueDate() {
         return dueDate;
     }
 
@@ -52,7 +54,7 @@ public class Message {
         return markdown;
     }
 
-    public int getNoticeNumber() {
+    public String getNoticeNumber() {
         return noticeNumber;
     }
 

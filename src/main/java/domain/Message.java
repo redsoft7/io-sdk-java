@@ -34,7 +34,7 @@ public class Message {
         this.subject = subject;
     }
 
-    public int getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 

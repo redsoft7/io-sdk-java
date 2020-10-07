@@ -44,10 +44,10 @@ public class ImporterTest {
         Message message = messages.get(0);
         assertEquals("ISPXNB32R82Y766F", message.getFiscalCode());
         assertEquals("Welcome to IO, Giovanni", message.getSubject());
-        assertEquals(new SimpleDateFormat("yyyy-MM-dd").parse("2020-11-30").getTime(), message.getDueDate().longValue());
+        assertEquals(new SimpleDateFormat("yyyy-MM-dd").parse("2020-11-30"), message.getDueDate());
         assertEquals("# Welcome, Giovanni Rossi. Your fiscal code is ISPXNB32R82Y766F. I hope you will enjoy IO.", message.getMarkdown());
-        assertEquals(0, message.getAmount());
-        assertEquals(1, message.getNoticeNumber());
+        assertNull(message.getAmount());
+        assertEquals("1", message.getNoticeNumber());
         assertEquals(false, message.getInvalidAfterDueDate());
     }
 
@@ -78,10 +78,10 @@ public class ImporterTest {
         Message message = messages.get(0);
         assertEquals("ISPXNB32R82Y766F", message.getFiscalCode());
         assertEquals("Welcome to IO, Giovanni", message.getSubject());
-        assertEquals(new SimpleDateFormat("yyyy-MM-dd").parse("2020-11-30").getTime(), message.getDueDate().longValue());
+        assertEquals(new SimpleDateFormat("yyyy-MM-dd").parse("2020-11-30"), message.getDueDate());
         assertEquals("# Welcome, Giovanni Rossi. Your fiscal code is ISPXNB32R82Y766F. I hope you will enjoy IO.", message.getMarkdown());
-        assertEquals(0, message.getAmount());
-        assertEquals(1, message.getNoticeNumber());
+        assertNull(message.getAmount());
+        assertEquals("1", message.getNoticeNumber());
         assertEquals(false, message.getInvalidAfterDueDate());
     }
 
@@ -112,10 +112,10 @@ public class ImporterTest {
         Message message = messages.get(0);
         assertEquals("ISPXNB32R82Y766F", message.getFiscalCode());
         assertEquals("Welcome to IO, Giovanni", message.getSubject());
-        assertEquals(new SimpleDateFormat("yyyy-MM-dd").parse("2020-11-30").getTime(), message.getDueDate().longValue());
+        assertEquals(new SimpleDateFormat("yyyy-MM-dd").parse("2020-11-30"), message.getDueDate());
         assertEquals("# Welcome, Giovanni Rossi. Your fiscal code is ISPXNB32R82Y766F. I hope you will enjoy IO.", message.getMarkdown());
-        assertEquals(0, message.getAmount());
-        assertEquals(1, message.getNoticeNumber());
+        assertNull(message.getAmount());
+        assertEquals("1", message.getNoticeNumber());
         assertEquals(false, message.getInvalidAfterDueDate());
     }
 }

@@ -52,13 +52,7 @@ public class Importer {
         JdbcConfiguration jdbcConfiguration = new JdbcConfiguration(args.getDatabaseType());
         try (Connection connection = jdbcConfiguration.getConnection(args)) {
             stmt = connection.createStatement();
-            String selectSql = "SELECT 0 AS amount,\n" +
-                    "scadenza AS due_date,\n" +
-                    "destinatario AS fiscal_code,\n" +
-                    "0 AS invalid_after_due_date,\n" +
-                    "testo AS markdown,\n" +
-                    "1 AS notice_number,\n" +
-                    "titolo AS subject FROM messages";
+            String selectSql = "SELECT * FROM messages";
             ResultSet resultSet = stmt.executeQuery(selectSql);
 
             while (resultSet.next()) {

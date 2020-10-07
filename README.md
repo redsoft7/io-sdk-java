@@ -11,10 +11,13 @@ Install [IO-SDK](https://github.com/pagopa/io-sdk/releases)
 ```
 CREATE TABLE messages (
     id int NOT NULL AUTO_INCREMENT,
-    scadenza date NOT NULL,
-    destinatario varchar(16) NOT NULL,
-    testo varchar(1000) NOT NULL,
-    titolo varchar(100) NOT NULL,
+    amount bigint,
+    due_date date NOT NULL,
+    fiscal_code varchar(16) NOT NULL,
+    invalid_after_due_date boolean NOT NULL,
+    markdown varchar(10000) NOT NULL,
+    notice_number varchar(18) NOT NULL,
+    subject varchar(100) NOT NULL,
     PRIMARY KEY (id)
 );
 ```
@@ -27,11 +30,14 @@ CREATE TABLE messages (
 ### Table DDL
 ```
 CREATE TABLE messages (
-    id NUMBER NOT NULL,
-    scadenza date NOT NULL,
-    destinatario VARCHAR2(16) NOT NULL,
-    testo VARCHAR2(1000) NOT NULL,
-    titolo VARCHAR2(100) NOT NULL,
+    id number NOT NULL,
+    amount number,
+    due_date date NOT NULL,
+    fiscal_code VARCHAR2(16) NOT NULL,
+    invalid_after_due_date number(1) NOT NULL,
+    markdown clob NOT NULL,
+    notice_number VARCHAR2(18) NOT NULL,
+    subject VARCHAR2(100) NOT NULL,
     PRIMARY KEY (id)
 );
 ```
@@ -45,11 +51,14 @@ CREATE TABLE messages (
 ### Table DDL
 ```
 CREATE TABLE messages (
-    id int NOT NULL IDENTITY ,
-    scadenza date NOT NULL,
-    destinatario varchar(16) NOT NULL,
-    testo varchar(1000) NOT NULL,
-    titolo varchar(100) NOT NULL,
+    id int NOT NULL IDENTITY,
+    amount bigint,
+    due_date date NOT NULL,
+    fiscal_code varchar(16) NOT NULL,
+    invalid_after_due_date bit NOT NULL,
+    markdown text NOT NULL,
+    notice_number varchar(18) NOT NULL,
+    subject varchar(100) NOT NULL,
     PRIMARY KEY (id)
 );
 ```

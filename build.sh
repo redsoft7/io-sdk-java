@@ -1,6 +1,6 @@
 #!/bin/bash
 if [[ $# -eq 0 ]] ; then
-    echo 'Database type is required: mysql, oracle, sqlserver'
+    echo 'Database type is required: mysql, oracle, sqlserver, postgresql'
     exit 0
 fi
 cd "$(dirname $0)"

@@ -44,4 +44,15 @@ public class TestUtils {
         args.setPassword("StrongPassword1");
         return args;
     }
+
+    public static Args buildPostgreSQLArgs() {
+        Args args = new Args();
+        args.setDatabaseType("postgresql");
+        args.setHost(getDockerIp());
+        args.setDatabase("test");
+        args.setPort("5432");
+        args.setUser("postgres");
+        args.setPassword("postgres");
+        return args;
+    }
 }

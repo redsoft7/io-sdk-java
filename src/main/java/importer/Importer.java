@@ -43,6 +43,13 @@ public class Importer {
                     || args.getUser() == null
                     || args.getPassword() == null;
         }
+        if("postgresql".equals(args.getDatabaseType())) {
+            return args.getHost() == null
+                    || args.getPort() == null
+                    || args.getDatabase() == null
+                    || args.getUser() == null
+                    || args.getPassword() == null;
+        }
         return false;
     }
 

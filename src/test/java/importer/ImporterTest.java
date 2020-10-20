@@ -46,7 +46,7 @@ public class ImporterTest {
         assertEquals("Welcome to IO, Giovanni", message.getSubject());
         assertEquals(new SimpleDateFormat("yyyy-MM-dd").parse("2020-11-30"), message.getDueDate());
         assertEquals("# Welcome, Giovanni Rossi. Your fiscal code is ISPXNB32R82Y766F. I hope you will enjoy IO.", message.getMarkdown());
-        assertNull(message.getAmount());
+        assertEquals(0, message.getAmount().intValue());
         assertEquals("1", message.getNoticeNumber());
         assertEquals(false, message.getInvalidAfterDueDate());
     }
@@ -80,7 +80,7 @@ public class ImporterTest {
         assertEquals("Welcome to IO, Giovanni", message.getSubject());
         assertEquals(new SimpleDateFormat("yyyy-MM-dd").parse("2020-11-30"), message.getDueDate());
         assertEquals("# Welcome, Giovanni Rossi. Your fiscal code is ISPXNB32R82Y766F. I hope you will enjoy IO.", message.getMarkdown());
-        assertNull(message.getAmount());
+        assertEquals(0, message.getAmount().intValue());
         assertEquals("1", message.getNoticeNumber());
         assertEquals(false, message.getInvalidAfterDueDate());
     }
@@ -103,7 +103,7 @@ public class ImporterTest {
     }
 
     @Test
-    public void testLoadMessagesMysqlSQLServer() throws ParseException {
+    public void testLoadMessagesSQLServer() throws ParseException {
         Args args = TestUtils.buildSQLServerArgs();
 
         List<Message> messages = new Importer(args).loadMessages();
@@ -114,7 +114,41 @@ public class ImporterTest {
         assertEquals("Welcome to IO, Giovanni", message.getSubject());
         assertEquals(new SimpleDateFormat("yyyy-MM-dd").parse("2020-11-30"), message.getDueDate());
         assertEquals("# Welcome, Giovanni Rossi. Your fiscal code is ISPXNB32R82Y766F. I hope you will enjoy IO.", message.getMarkdown());
-        assertNull(message.getAmount());
+        assertEquals(0, message.getAmount().intValue());
+        assertEquals("1", message.getNoticeNumber());
+        assertEquals(false, message.getInvalidAfterDueDate());
+    }
+
+    @Test
+    public void testShowFormWhenMissingArgsPostgreSQL() {
+        Args args = TestUtils.buildPostgreSQLArgs();
+        args.setDatabase(null);
+
+        boolean showForm = new Importer(args).showForm();
+        assertTrue(showForm);
+    }
+
+    @Test
+    public void testHideFormWhenAllArgsPostgreSQL() {
+        Args args = TestUtils.buildPostgreSQLArgs();
+
+        boolean showForm = new Importer(args).showForm();
+        assertFalse(showForm);
+    }
+
+    @Test
+    public void testLoadMessagesPostgreSQL() throws ParseException {
+        Args args = TestUtils.buildPostgreSQLArgs();
+
+        List<Message> messages = new Importer(args).loadMessages();
+        assertFalse(messages.isEmpty());
+        assertEquals(2, messages.size());
+        Message message = messages.get(0);
+        assertEquals("ISPXNB32R82Y766F", message.getFiscalCode());
+        assertEquals("Welcome to IO, Giovanni", message.getSubject());
+        assertEquals(new SimpleDateFormat("yyyy-MM-dd").parse("2020-11-30"), message.getDueDate());
+        assertEquals("# Welcome, Giovanni Rossi. Your fiscal code is ISPXNB32R82Y766F. I hope you will enjoy IO.", message.getMarkdown());
+        assertEquals(0, message.getAmount().intValue());
         assertEquals("1", message.getNoticeNumber());
         assertEquals(false, message.getInvalidAfterDueDate());
     }

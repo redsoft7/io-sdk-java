@@ -92,4 +92,30 @@ public class JdbcConfigurationTest {
 
         new Importer(args).loadMessages();
     }
+
+    @Test
+    public void testJdbcUrlPostgreSQL(){
+        Args args = TestUtils.buildPostgreSQLArgs();
+
+        String url = new JdbcConfiguration("postgresql").buildJdbcUrl(args);
+
+        assertEquals("jdbc:postgresql://" + TestUtils.getDockerIp() + ":5432/test", url);
+    }
+
+    @Test
+    public void testConnectionPostgreSQL() throws SQLException {
+        Args args = TestUtils.buildPostgreSQLArgs();
+
+        Connection connection = new JdbcConfiguration("postgresql").getConnection(args);
+
+        assertTrue(connection.isValid(1));
+    }
+
+    @Test(expected =ImportException.class)
+    public void testConnectionErrorPostgreSQL() {
+        Args args = TestUtils.buildPostgreSQLArgs();
+        args.setPort("1234");
+
+        new Importer(args).loadMessages();
+    }
 }

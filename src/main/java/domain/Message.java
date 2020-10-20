@@ -25,7 +25,7 @@ public class Message {
     private String subject;
 
     public Message(Integer amount, Date dueDate, String fiscalCode, boolean invalidAfterDueDate, String markdown, String noticeNumber, String subject) {
-        this.amount = amount == 0 ? null : amount;
+        this.amount = amount;
         this.dueDate = dueDate;
         this.fiscalCode = fiscalCode;
         this.invalidAfterDueDate = invalidAfterDueDate;
